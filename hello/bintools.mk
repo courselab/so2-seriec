@@ -164,12 +164,12 @@ diss d diss* d*: $(IMG)
 	make run IMG=$<
 
 run: $(IMG)
-	qemu-system-i386 -drive format=raw,file=$< -net none
+	qemu-system-i386 -rtc base=localtime,clock=host,driftfix=slew -drive format=raw,file=$< -net none
 
 # These are deprecate; use %/run, instead.
 
 run-bin: $(IMG)
-	qemu-system-i386 -drive format=raw,file=$< -net none
+	qemu-system-i386 -rtc -drive format=raw,file=$< -net none
 	@echo "Shortcut run-bin is deprecated: use 'make run' instead."
 
 run-iso: $(IMG)

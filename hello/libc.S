@@ -10,6 +10,7 @@
 .code16gcc
 .global putc
 .global get_convmem
+.global get_rtc
 
 .section .text
 
@@ -21,4 +22,12 @@ putc:
 
 get_convmem:
 	int $0x12
+	ret
+
+get_rtc: 
+	push %cx
+	mov $0x02, %ah
+	int $0x1a
+	mov %cx, %ax
+	pop %cx
 	ret

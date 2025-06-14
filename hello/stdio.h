@@ -13,5 +13,6 @@
 
 void __attribute__((fastcall, naked)) putc(char c); 
 unsigned short __attribute__((fastcall, naked)) get_convmem(); 
+unsigned int __attribute__((fastcall, naked)) get_rtc(); 
 
 #endif	

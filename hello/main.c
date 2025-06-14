@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 
+#define BCD_TO_BIN(bcd) (((bcd) >> 4) * 10 + ((bcd) & 0xf))
+
 void puts(const char *str) {
 	while (*str) {
 		putc(*str);
@@ -41,5 +43,23 @@ int main(void) {
 	unsigned short conv_mem = get_convmem();
 	printint(conv_mem);
 	puts("\r\n");
+
+	while (1) {
+		puts("Time: ");
+		unsigned int rtc = get_rtc();
+		unsigned short hour = (rtc >> 8) & 0xff;
+		unsigned short min = rtc & 0xff;
+		hour = BCD_TO_BIN(hour);
+		min = BCD_TO_BIN(min);
+		if (hour < 10)
+			putc('0');
+		printint(hour);
+		putc(':');
+		if (min < 10)
+			putc('0');
+		printint(min);
+		putc('\r');
+	}
+
 	return 0;
 }
