@@ -24,12 +24,11 @@ void printint(int x) {
 		return;
 	}
 
-	char digits[] = "0123456789";
-	char buff[16];
+	char buff[8];
 	char *ptr = buff + sizeof(buff) - 1;
 	*ptr = 0;
 	while(x) {
-		*--ptr = digits[x % 10];
+		*--ptr = '0' + x % 10;
 		x /= 10;
 	}
 	puts(ptr);
@@ -37,5 +36,10 @@ void printint(int x) {
 
 int main(void) {
 	puts("Hello World!\r\n");
+
+	puts("Conventional memory size(KB): ");
+	unsigned short conv_mem = get_convmem();
+	printint(conv_mem);
+	puts("\r\n");
 	return 0;
 }

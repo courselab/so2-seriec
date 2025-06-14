@@ -9,6 +9,7 @@
 /* Suppose we receive the argument in %cx. */
 .code16gcc
 .global putc
+.global get_convmem
 
 .section .text
 
@@ -18,4 +19,6 @@ putc:
 	int $0x10
 	ret
 
+get_convmem:
+	int $0x12
 	ret
