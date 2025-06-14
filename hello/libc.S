@@ -8,22 +8,14 @@
 
 /* Suppose we receive the argument in %cx. */
 .code16gcc
-.global printf
+.global putc
 
 .section .text
 
-printf:	
-	mov   %cx, %bx
+putc:	
+	mov $0x0e, %ah
+	mov %cl, %al
+	int $0x10
+	ret
 
-	mov   $0x0e, %ah
-	mov   $0x0, %si
-loop:
-	mov   (%bx, %si), %al
-	cmp   $0x0, %al
-	je    end
-	int   $0x10
-	add   $0x1, %si
-	jmp   loop
-end:
-	mov %si, %ax
 	ret

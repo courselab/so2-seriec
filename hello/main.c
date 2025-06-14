@@ -11,7 +11,14 @@
 
 #include <stdio.h>
 
+void puts(const char *str) {
+	while (*str) {
+		putc(*str);
+		str++;
+	}
+}
+
 int main(void) {
-	printf ("Hello World");
+	puts("Hello World!\r\n");
 	return 0;
 }
