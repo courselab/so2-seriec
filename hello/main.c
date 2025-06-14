@@ -18,6 +18,23 @@ void puts(const char *str) {
 	}
 }
 
+void printint(int x) {
+	if (!x) {
+		putc('0');
+		return;
+	}
+
+	char digits[] = "0123456789";
+	char buff[16];
+	char *ptr = buff + sizeof(buff) - 1;
+	*ptr = 0;
+	while(x) {
+		*--ptr = digits[x % 10];
+		x /= 10;
+	}
+	puts(ptr);
+}
+
 int main(void) {
 	puts("Hello World!\r\n");
 	return 0;
