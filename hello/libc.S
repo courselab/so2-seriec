@@ -20,10 +20,6 @@ putc:
 	int $0x10
 	ret
 
-get_convmem:
-	int $0x12
-	ret
-
 get_rtc: 
 	push %cx
 	mov $0x02, %ah
