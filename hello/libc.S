@@ -15,19 +15,19 @@
 .section .text
 
 putc:	
-	mov $0x0e, %ah
-	mov %cl, %al
-	int $0x10
-	ret
+    mov $0x0e, %ah      # Seleciona a função de teletipo (TTY) da BIOS para saída de caractere
+    mov %cl, %al        # Move o caractere (em %cl) para %al
+    int $0x10           # Chama a interrupção de vídeo da BIOS (serviço 0x0e)
+    ret                 # Retorna
 
 get_convmem:
-	int $0x12
-	ret
+    int $0x12           # Chama a interrupção da BIOS para obter o tamanho da memória convencional (em KB)
+    ret
 
 get_rtc: 
-	push %cx
-	mov $0x02, %ah
-	int $0x1a
-	mov %cx, %ax
-	pop %cx
-	ret
+    push %cx            # Salva %cx na pilha
+    mov $0x02, %ah      # Seleciona a função para ler os minutos do RTC (Relógio em Tempo Real)
+    int $0x1a           # Chama a interrupção da BIOS para RTC
+    mov %cx, %ax        # Move o valor de %cx para %ax (resultado)
+    pop %cx             # Restaura %cx
+    ret
