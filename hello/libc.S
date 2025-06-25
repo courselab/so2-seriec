@@ -11,6 +11,9 @@
 .global putc
 .global get_convmem
 .global get_rtc
+.global wait_key_and_reboot
+.global key_pressed
+.global reboot
 
 .section .text
 
@@ -31,3 +34,21 @@ get_rtc:
     mov %cx, %ax        # Move o valor de %cx para %ax (resultado)
     pop %cx             # Restaura %cx
     ret
+
+wait_key_and_reboot:
+    int $0x16           # espera uma tecla ser pressionada
+    int $0x19           # reboot
+    ret
+
+key_pressed:
+    mov $0x01, %ah      # Função 01h: Checa se tecla foi pressionada
+    int $0x16           # BIOS Keyboard Service
+    jz no_key           # Se ZF=1, nenhuma tecla
+    mov $1, %ax         # Retorna 1 (tecla pressionada)
+    ret
+no_key:
+    xor %ax, %ax        # Retorna 0 (nenhuma tecla)
+    ret
+
+reboot:
+    int $0x19           # interrupção de reboot

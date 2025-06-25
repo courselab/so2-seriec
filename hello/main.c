@@ -36,15 +36,13 @@ void printint(int x) {
 	puts(ptr);
 }
 
+int key_pressed(void);
+void reboot();
+void wait_key_and_reboot();
 int main(void) {
 	puts("Hello World!\r\n");
 
-	puts("Conventional memory size(KB): ");
-	unsigned short conv_mem = get_convmem();
-	printint(conv_mem);
-	puts("\r\n");
-
-	while (1) {
+	while (!key_pressed()) {
 		puts("Time: ");
 		unsigned int rtc = get_rtc();
 		unsigned short hour = (rtc >> 8) & 0xff;
@@ -61,5 +59,7 @@ int main(void) {
 		putc('\r');
 	}
 
+	puts("\r\nRebooting...\r\n");
+	wait_key_and_reboot();
 	return 0;
 }
