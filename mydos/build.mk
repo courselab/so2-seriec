@@ -9,9 +9,7 @@
 # By default, the bootable program name will be tydos.bin
 # If you export this directory to extend the example as part of a programming
 # exercise, redefine $(dos) to reflect your own DOS name, say
-# dos = "amazingOS"
-
-dos=$(shell basename $$(realpath .))
+dos = "seriec"
 
 # Build the OS and an example user program.
 

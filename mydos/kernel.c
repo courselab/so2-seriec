@@ -42,7 +42,7 @@ void shell()
 {
   int i;
   clear();
-  kwrite("TinyDOS 1.0\n");
+  kwrite("SerieC 1.0\n");
 
   while (go_on)
   {
@@ -96,7 +96,7 @@ void f_help()
   kwrite("...me, Obi-Wan, you're my only hope!\n\n");
   kwrite("   But we can try also some commands:\n");
   kwrite("      hello   (to run a sample user program\n");
-  kwrite("      quit    (to exit TyDOS)\n");
+  kwrite("      quit    (to exit SerieC)\n");
 }
 
 void f_quit()

@@ -10,7 +10,7 @@
 CC=gcc
 MAKE=make
 
-dos=$(shell basename $$(realpath .))
+dos=seriec
 
 # Build the OS and an example user program.
 
