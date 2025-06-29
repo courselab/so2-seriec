@@ -74,5 +74,10 @@ libtydos.a : libtydos.o
 clean:
 	rm -f *.bin *.o *~ *.s *.a
 
+
+%.img:
+	rm -f $@
+	dd if=/dev/zero of=$@ bs=1024 count=1440
+
 # SYSeg's  convenience rules (not related to the example itself)
 include bintools.mk
