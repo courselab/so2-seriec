@@ -12,7 +12,17 @@
 #ifndef BIOS2_H
 #define BIOS2_H
 
+#include <stdint.h>
+ 
+uint8_t disk_read(uint8_t drive,
+		uint16_t cyl,
+		uint16_t head,
+		uint16_t sector,
+		uint8_t count,
+		void *buffer);
+
 int __attribute__((fastcall)) kread(char *);
+int __attribute__((fastcall)) putc(char);
 
 void __attribute__((fastcall)) udelay(unsigned short);
 

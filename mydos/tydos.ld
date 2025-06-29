@@ -14,7 +14,7 @@
 OUTPUT_FORMAT(binary)		/* Output flat binary (no structure). */
 SECTIONS
 {
-        . = 0x7C00;		/* Line counter is now 0x7c00.    */
+        . = 0x7C00 + 16;	/* Line counter is now 0x7c00. We skip the tyFs header */
 
         .bootloader :		/* Bootloader and required files. */
 	{

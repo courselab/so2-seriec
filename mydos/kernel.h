@@ -30,6 +30,7 @@ void shell();        /* Command interpreter. */
 /* Built-in commands. */
 
 void f_help();
+void f_list();
 void f_quit();
 void f_hello();
 

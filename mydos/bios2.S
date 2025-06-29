@@ -15,13 +15,79 @@
            by the bootloader (so as to respect the 512-byte length limit).*/
 
 	.code16gcc
-	.global kread, udelay, register_syscall_handler, sys_write
+	.global disk_read, putc, kread, udelay, register_syscall_handler, sys_write
 
 	.section .text
 
 	# int kread(char* buffer)
 	# Reads from the keyboard into the buffer.
 	# Returns the number of bytes read.
+
+/* Function: int disk_read(uint8_t drive, uint16_t cyl, uint8_t head, 
+ *                         uint8_t sector, uint8_t count, void *buffer)
+ * Returns: 0 on success, BIOS error code on failure
+ */
+
+disk_read:
+	pushw %bp
+	movw %sp, %bp
+
+	pushw %bx
+	pushw %es
+
+	/* DL = driver num */
+	movw 6(%bp), %ax
+	movb %al, %dl
+
+	/* CH = cyl & 0xff */
+	movw 10(%bp), %ax
+	movb %al, %ch
+	/* Shift for CL*/
+	shlb $6, %ah
+
+	/* CL = sector | ((cyl >> 2) & 0xC0) */
+	movw 18(%bp), %bx
+	movb %bl, %cl
+	andb $0x3F, %cl
+	orb %ah, %cl
+
+	/* DH = head */
+	movw 14(%bp), %ax
+	movb %al, %dh
+
+	/* AL = count */
+	movw 22(%bp), %ax
+	movb %al, %al
+	movb $0x02, %ah
+
+	/* ES:BX -> buffer */
+	movw 26(%bp), %bx
+	pushw %ds
+	popw %es
+
+	int $0x13
+	jc .error
+
+	xorw %ax, %ax
+	jmp .done
+
+	.error:
+	movb %ah, %al
+
+	.done:
+	popw %es
+	popw %bx
+	popw %bp
+	ret
+
+
+putc:	
+	pusha
+	mov $0x0e, %ah
+	mov %cl, %al
+	int $0x10
+	popa
+	ret
 
 kread:
         pusha                   /* Save all GP registers.                     */
