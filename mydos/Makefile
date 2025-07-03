@@ -79,9 +79,23 @@ clean:
 	rm -f $@
 	dd if=/dev/zero of=$@ bs=1024 count=1440
 
-write2img: $(dos).bin disk.img
+format-disk:
+	@if [ ! -f disk.img ]; then \
+		dd if=/dev/zero of=disk.img bs=1024 count=1440; \
+	fi
+	@echo "Disco criado/zerado: disk.img"
+
+write2img: format-disk $(dos).bin disk.img
 	dd if=$(dos).bin of=disk.img obs=16 seek=1 conv=notrunc
+
 disk.img/run: write2img
+
+add-test-files: write2img
+	echo "Arquivo de teste 1" > teste1.txt
+	echo "Arquivo de teste 2" > teste2.txt
+	./tyfsedit disk.img put teste1.txt
+	./tyfsedit disk.img put teste2.txt
+	rm -f teste1.txt teste2.txt
 
 # SYSeg's  convenience rules (not related to the example itself)
 include bintools.mk
