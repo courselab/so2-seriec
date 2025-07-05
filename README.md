@@ -90,7 +90,6 @@ qemu-system-i386 -hda disk.img
 ## Observações
 
 - Cada pasta contém seu próprio `README` com detalhes técnicos adicionais e instruções específicas.
-- Recomenda-se iniciar por `hello/` para entender o modelo de execução bare-metal antes de explorar o sistema completo em `mydos/`.
 
 ---
 
