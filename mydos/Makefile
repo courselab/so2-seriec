@@ -90,12 +90,5 @@ write2img: format-disk $(dos).bin disk.img
 
 disk.img/run: write2img
 
-add-test-files: write2img
-	echo "Arquivo de teste 1" > teste1.txt
-	echo "Arquivo de teste 2" > teste2.txt
-	./tyfsedit disk.img put teste1.txt
-	./tyfsedit disk.img put teste2.txt
-	rm -f teste1.txt teste2.txt
-
 # SYSeg's  convenience rules (not related to the example itself)
 include bintools.mk
