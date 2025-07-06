@@ -79,8 +79,15 @@ clean:
 	rm -f $@
 	dd if=/dev/zero of=$@ bs=1024 count=1440
 
-write2img: $(dos).bin disk.img
+format-disk:
+	@if [ ! -f disk.img ]; then \
+		dd if=/dev/zero of=disk.img bs=1024 count=1440; \
+	fi
+	@echo "Disco criado/zerado: disk.img"
+
+write2img: format-disk $(dos).bin disk.img
 	dd if=$(dos).bin of=disk.img obs=16 seek=1 conv=notrunc
+
 disk.img/run: write2img
 
 # SYSeg's  convenience rules (not related to the example itself)
