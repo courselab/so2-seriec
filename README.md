@@ -76,14 +76,15 @@ Um sistema operacional simples com funcionalidades de multitarefa, gerenciamento
 #### Compilação:
 ```bash
 cd mydos
-make
+make disk.img
 ```
 
 #### Execução:
 ```bash
-qemu-system-i386 -hda disk.img
+make disk.img/run
 ```
-*(ver README da pasta para detalhes de preparação do disco e opções de build)*
+
+É possivel adicionar arquivos ao `disk.img` usando o utiliatario tyfsedit
 
 ---
 
